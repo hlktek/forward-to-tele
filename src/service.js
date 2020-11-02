@@ -7,11 +7,10 @@ async function send(request){
         response =await axios.get(`http://178.128.58.75:9009/api/measures/search?projectKeys=${request.project.name}&metricKeys=alert_status%2Cbugs%2Creliability_rating%2Cvulnerabilities%2Csecurity_rating%2Csecurity_hotspots_reviewed%2Csecurity_review_rating%2Ccode_smells%2Csqale_rating%2Cduplicated_lines_density%2Ccoverage%2Cncloc%2Cncloc_language_distribution%2Cprojects`);
         response.data.measures.map(data=>{
             if(!listIgnore.includes(data.metric)){
-            responseObj[data.metric] = data.value
+            responseObj[data.metric] = data.value;
         }
         })
-        responseObj['project'] = response.data.measures[0].component
-        console.log(JSON.stringify(response.data.measures))
+        responseObj['project'] = response.data.measures[0].component;
         let message = '';
         message += `\n----- Project : ${responseObj.project} -----`
                     +  "\nBranch:\t" + request.branch.name
@@ -24,7 +23,7 @@ async function send(request){
                     +  "\nVulnerabilities: \t" + responseObj.vulnerabilities
                     +  `\n   ---------   End   ---------   `
                     
-        telegram.send(message)
+        telegram.send(message);
         return {
             code : 200,
             data : responseObj
