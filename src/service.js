@@ -21,6 +21,7 @@ async function send(request){
         responseObj['project'] = response.data.measures.length >0 ? response.data.measures[0].component : '?????';
         let message = '';
         message += `\n----- Project : ${responseObj.project} -----`
+                    +  "\nUrl:\t" + request.branch.url
                     +  "\nBranch:\t" + request.branch.name
                     +  "\nStatus:\t" + responseObj.alert_status
                     +  "\nBugs:\t" + responseObj.bugs
@@ -30,8 +31,9 @@ async function send(request){
                     +  "\nSecurity Hotspots Reviewed: \t" + responseObj.security_hotspots_reviewed + '%'
                     +  "\nVulnerabilities: \t" + responseObj.vulnerabilities
                     +  `\n   ---------   End   ---------   `
-        
-        telegram.send(message);
+        if(responseObj.bugs > 0){
+            telegram.send(message);
+        }
         return {
             code : 200,
             data : responseObj
