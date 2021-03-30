@@ -31,9 +31,7 @@ async function send(request){
                     +  "\nSecurity Hotspots Reviewed: \t" + responseObj.security_hotspots_reviewed + '%'
                     +  "\nVulnerabilities: \t" + responseObj.vulnerabilities
                     +  `\n   ---------   End   ---------   `
-        if(responseObj.bugs > 0){
             telegram.send(message);
-        }
         return {
             code : 200,
             data : responseObj
