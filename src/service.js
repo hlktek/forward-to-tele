@@ -19,10 +19,11 @@ async function send(request){
         })
         const replaceIp = "http://188.166.210.246:9009";
         const replaceDomain = "https://sonar.gmstd.dev";
+        const url = request.branch.url.includes(replaceIp) ? request.branch.url.replace(replaceIp,replaceDomain) : request.branch.url
         responseObj['project'] = response.data.measures.length >0 ? response.data.measures[0].component : '?????';
         let message = '';
         message += `\n----- Project : ${responseObj.project} -----`
-                    +  "\nUrl:\t" + request.branch.url.includes(replaceIp) ? request.branch.url.replace(replaceIp,replaceDomain) : request.branch.url
+                    +  "\nUrl:\t" + url
                     +  "\nBranch:\t" + request.branch.name
                     +  "\nStatus:\t" + responseObj.alert_status
                     +  "\nBugs:\t" + responseObj.bugs
